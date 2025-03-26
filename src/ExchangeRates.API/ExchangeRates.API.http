@@ -1,0 +1,141 @@
+@ExchangeRates.API_HostAddress = https://localhost:7039
+@token=CfDJ8A-zChUuecpItnu1Stuke5PT9SXrzu-u0dCN7rJ9YCol468pHm4rTxjpzecdLw5zrt3FuGufPyFTpvGSrVyyBg8IkgFqFkMeJAsvGODWv0yygtAma12_tydY65OgZek4PmMAnmgv19wAzfTuVjXe8QPDIxftjUvN3Bk-PY2WfC5aLgYkLKLlqVjI1HUkboKSitKW5P_xlhYywotgswpmrNtYEfPIBR5997JEZdVA7KeI_yOqT3g00Znt6_vTnBK81cyW5zu5BzdE7zmCh-gi3AP0DuhNVxjQkpz2fbfpEdAtCRDYlsSVqDxM_-vKWCPph0lL3N5VXSGIvQ4FiJcvEWk5VH15k5MLzYapz5BdLjrhgQfIjbR16ewdTaLNg0dXrs42ESTVdl11d9GWN9Idh9xoEen-gqPSCXudXmE1-cDvjGmvWlqx62U5TMtadgnJLvdG70hzsWtHEcPTUSn0eLkJu1HCzzUiJvb0EI2sgE9tkXk9Uam7Fy9-CgtYTg7qmG_OMOukkHeTddOCFlvnB5esGNxo53U0nbxiySQea126S67a6eZBs57p-4McriQQ06obSj0888y23AJNCjC7EfvrLf2Mx5_B-nZD-pXusVCpiX1t6upVvW0Yi4YaHwqrZWg1IuKXiit8OxV8snDsLpy_hwWcamCWUOPAZgEPtKFYo5NX-hVfhEfTaGu3sbXvU49axKVI19DNoOX8aU6aFMGiJQmRRPDRz1hQP3lffVgVAiu1owoeQllDvaRN67Khnfocnw0SQbNxTSKo_fy2x3pE1UecVrF91u60VFFG2-tGvnMmxGoloMMmtRvwKqgguFGJhfGPn6FMtqXlypGxWZKk89L2GNJ1dJFYu7UCIX-xqIp5KzFYiHFPW7MyRKHNJA
+
+###
+
+POST {{ExchangeRates.API_HostAddress}}/api/exchangerates
+Authorization: Bearer {{token}}
+Content-Type: application/json
+{
+  "fromCurrency": "US",
+  "toCurrency": "EURR",
+  "bidPrice": 0,
+  "askPrice": 0,
+  "date": "2099-12-31T00:00:00.000Z"
+}
+
+###
+
+POST {{ExchangeRates.API_HostAddress}}/api/exchangerates
+Authorization: Bearer {{token}}
+Content-Type: application/json
+{
+  "fromCurrency": "EUR",
+  "toCurrency": "USD",
+  "bidPrice": 1.24,
+  "askPrice": 1.34,
+  "date": "2025-03-23T00:00:00.000Z"
+}
+
+###
+
+GET {{ExchangeRates.API_HostAddress}}/api/exchangerates/EUR/USD
+Authorization: Bearer {{token}}
+
+###
+
+GET {{ExchangeRates.API_HostAddress}}/api/exchangerates/EUR/AOA
+Authorization: Bearer {{token}}
+
+###
+
+GET {{ExchangeRates.API_HostAddress}}/api/exchangerates/USD/EUR?date=2025-03-22
+Authorization: Bearer {{token}}
+
+###
+
+GET {{ExchangeRates.API_HostAddress}}/api/exchangerates?SearchPhrase=EUR&pageSize=30&pageNumber=1&sortBy=Date&sortDirection=Descending
+Authorization: Bearer {{token}}
+
+###
+
+GET {{ExchangeRates.API_HostAddress}}/api/exchangerates/3
+Authorization: Bearer {{token}}
+
+###
+
+DELETE {{ExchangeRates.API_HostAddress}}/api/exchangerates/3
+Authorization: Bearer {{token}}
+
+###
+
+PATCH {{ExchangeRates.API_HostAddress}}/api/exchangerates/2
+Authorization: Bearer {{token}}
+Content-Type: application/json
+{
+    "bidPrice": 2.44,
+    "askPrice": 2.33
+}
+
+###
+
+POST {{ExchangeRates.API_HostAddress}}/api/identity/register
+Content-Type: application/json
+
+{
+    "email":"admin@test.com",
+    "password":"Password1$"
+}
+
+###
+
+POST {{ExchangeRates.API_HostAddress}}/api/identity/login
+Content-Type: application/json
+
+{
+    "email":"admin@test.com",
+    "password":"Password1$"
+}
+
+###
+
+POST {{ExchangeRates.API_HostAddress}}/api/identity/userRole
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "UserEmail": "admin@test.com",
+    "RoleName": "Admin"
+}
+
+###
+
+POST {{ExchangeRates.API_HostAddress}}/api/identity/register
+Content-Type: application/json
+
+{
+    "email":"user@test.com",
+    "password":"Password1$"
+}
+
+###
+
+POST {{ExchangeRates.API_HostAddress}}/api/identity/login
+Content-Type: application/json
+
+{
+    "email":"user@test.com",
+    "password":"Password1$"
+}
+
+###
+
+PATCH {{ExchangeRates.API_HostAddress}}/api/identity/user
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "Nationality":"Portuguese",
+    "DateOfBirth":"2001-01-02"
+}
+
+###
+
+POST {{ExchangeRates.API_HostAddress}}/api/identity/userRole
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "UserEmail": "user@test.com",
+    "RoleName": "User"
+}
