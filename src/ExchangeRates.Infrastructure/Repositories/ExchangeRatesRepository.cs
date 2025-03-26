@@ -41,11 +41,11 @@ internal class ExchangeRatesRepository(ApplicationDbContext dbContext) : IExchan
     public async Task<(IEnumerable<ExchangeRate>, int)> GetAllMatchingAsync(string? searchPhrase,
     int pageSize, int pageNumber, string? sortBy, SortDirection sortDirection)
     {
-        var searchPhraseLower = searchPhrase?.ToUpper();
+        var searchPhraseUpper = searchPhrase?.ToUpper();
 
         var baseQuery = dbContext.ExchangeRates
-            .Where(r => searchPhraseLower == null ||
-                (r.FromCurrency.ToUpper().Contains(searchPhraseLower) || r.FromCurrency.ToUpper().Contains(searchPhraseLower)));
+            .Where(r => searchPhraseUpper == null ||
+                (r.FromCurrency.ToUpper().Contains(searchPhraseUpper) || r.ToCurrency.ToUpper().Contains(searchPhraseUpper)));
 
         var totalCount = await baseQuery.CountAsync();
 
