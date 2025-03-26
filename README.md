@@ -28,7 +28,7 @@ If a requested exchange rate is not available in the database, the API retrieves
 ### Steps
 1. Clone the repository:
    ```sh
-   git clone https://github.com/seu-usuario/exchangerates-api.git
+   git clone https://github.com/ricneves/vfx_challenge.git
    cd exchangerates-api
    ```
 2. Configure the **appsettings.json**:
@@ -53,34 +53,61 @@ If a requested exchange rate is not available in the database, the API retrieves
 
 ## API Endpoints
 ### 1. Get Exchange Rate
-   - **GET** `/api/exchangerates/{baseCurrency}/{targetCurrency}`
+   - **GET** `/api/exchangerates/{FromCurrency}/{ToCurrency}?date={YYYY-MM-DD}`
+   - **Parameters:**
+     - `FromCurrency` (string) - Source currency code (e.g., USD)
+     - `ToCurrency` (string) - Target currency code (e.g., EUR)
+     - `date` (optional, format: YYYY-MM-DD) - Exchange rate date. If omitted, returns the latest available rate.
+
    - **Response:**
      ```json
      {
-       "baseCurrency": "USD",
-       "targetCurrency": "EUR",
-       "bid": 1.085,
-       "ask": 1.090,
-       "lastUpdated": "2025-03-24T12:00:00Z"
+       "fromCurrency": "USD",
+       "toCurrency": "EUR",
+       "bidPrice": 1.085,
+       "askPrice": 1.090,
+       "date": "2025-03-26T00:00:00"
      }
      ```
-   - If not available in the database, it fetches from Alpha Vantage and stores it.
+
+   - **Behavior:**
+     - If the exchange rate is not available in the database, the API will attempt to fetch it from Alpha Vantage and store it.
+
+   - **Possible HTTP Status Codes:**
+     - `200 OK` - Success
+     - `400 Bad Request` - If the parameters are invalid
+     - `404 Not Found` - If the exchange rate is not found
+     - `500 Internal Server Error` - If there is a failure when fetching the rate externally
+
+   - **Example Requests:**
+     ```
+     GET /api/exchangerates/USD/EUR
+     GET /api/exchangerates/USD/EUR?date=2025-03-26
+     ```
 
 ### 2. Add Exchange Rate
    - **POST** `/api/exchangerates`
    - **Request Body:**
      ```json
      {
-       "baseCurrency": "USD",
-       "targetCurrency": "GBP",
-       "bid": 1.320,
-       "ask": 1.325
+       "fromCurrency": "USD",
+       "toCurrency": "GBP",
+       "bidPrice": 1.320,
+       "askPrice": 1.325,
+	   "date": "2025-03-26T00:00:00"
      }
      ```
 
 ### 3. Update Exchange Rate
-   - **PUT** `/api/exchangerates/{id}`
-   - **Request Body:** Similar to POST request
+   - **PATCH** `/api/exchangerates/{id}`
+   - **Request Body:** 
+	 ```json
+     {
+       "id": 1,
+       "bidPrice": 1.320,
+       "askPrice": 1.325
+     }
+     ```
 
 ### 4. Delete Exchange Rate
    - **DELETE** `/api/exchangerates/{id}`
